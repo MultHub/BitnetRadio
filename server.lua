@@ -413,20 +413,26 @@ end, function()
           term.setTextColor(colors.yellow)
         end
         print("BitnetRadio server - "..conf.name)
-      end
-    end
-    if term.isColor() then
-      term.setTextColor(colors.yellow)
-    end
-    write("radio> ")
-    term.setTextColor(colors.white)
-    local str = read(nil, history)
-    if str:gsub(" ", "") ~= "" then
-      table.insert(history, str)
-      if str:sub(1, 1) == "/" then
-        parseCommand(str:sub(2))
       else
-        table.insert(buffer, str)
+        term.clear()
+        term.setCursorPos(2, 2)
+        printError("ACCESS DENIED")
+        sleep(2)
+      end
+    else
+      if term.isColor() then
+        term.setTextColor(colors.yellow)
+      end
+      write("radio> ")
+      term.setTextColor(colors.white)
+      local str = read(nil, history)
+      if str:gsub(" ", "") ~= "" then
+        table.insert(history, str)
+        if str:sub(1, 1) == "/" then
+          parseCommand(str:sub(2))
+        else
+          table.insert(buffer, str)
+        end
       end
     end
   end
