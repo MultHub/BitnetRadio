@@ -303,9 +303,11 @@ local cmds = {
     if not password then
       conf.password = nil
       saveConfig()
+      print("Password cleared")
     else
       conf.password = sha256(password)
       saveConfig()
+      print("Password set")
     end
   end},
 }
