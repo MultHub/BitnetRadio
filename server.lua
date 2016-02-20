@@ -378,6 +378,8 @@ function parseCommand(str)
   end
 end
 
+local oldPE = os.pullEvent
+
 local history = {}
 
 term.clear()
@@ -401,6 +403,7 @@ parallel.waitForAny(function()
 end, function()
   while running do
     if locked and conf.password ~= nil then
+      os.pullEvent = os.pullEventRaw
       term.clear()
       term.setCursorPos(2, 2)
       printError("LOCKED")
@@ -422,6 +425,7 @@ end, function()
         sleep(2)
       end
     else
+      os.pullEvent = oldPE
       if term.isColor() then
         term.setTextColor(colors.yellow)
       end
